@@ -1,0 +1,296 @@
+@import "tailwindcss";
+
+/* ── Design Token Variables (Dark Default, Light via .light-mode) ── */
+:root {
+  --bg: #060807;
+  --surface: #0D1210;
+  --panel: #131A17;
+  --border: #1F2B25;
+  --cream: #F4F3EF;
+  --muted: #8E9893;
+  --lime: #D2FF28;
+  --emerald: #00E599;
+  --warm: #FF5E36;
+  --card-grad-start: #0E1914;
+  --card-grad-end: #060807;
+}
+
+html.light-mode {
+  --bg: #F6F5F0;
+  --surface: #FFFFFF;
+  --panel: #EBE9E0;
+  --border: #DCD9CE;
+  --cream: #0B110E;
+  --muted: #57635D;
+  --lime: #111A15;
+  --emerald: #009E66;
+  --card-grad-start: #FFFFFF;
+  --card-grad-end: #EFECE4;
+}
+
+/* ── Tailwind v4 Theme Extension ── */
+@theme {
+  --color-hovs-bg: var(--bg);
+  --color-hovs-surface: var(--surface);
+  --color-hovs-panel: var(--panel);
+  --color-hovs-border: var(--border);
+  --color-hovs-cream: var(--cream);
+  --color-hovs-muted: var(--muted);
+  --color-hovs-lime: var(--lime);
+  --color-hovs-emerald: var(--emerald);
+  --color-hovs-warm: var(--warm);
+}
+
+@theme inline {
+  --font-nehomi: var(--font-nehomi);
+  --font-menutal: var(--font-menutal);
+  --font-mono: var(--font-mono);
+}
+
+/* ── Base Reset ── */
+* {
+  box-sizing: border-box;
+}
+
+@media (min-width: 1025px) {
+  * { cursor: none; }
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-menutal), "Inter", system-ui, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-nehomi), "Space Grotesk", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+::selection {
+  background-color: var(--lime);
+  color: var(--bg);
+}
+
+/* ── Fluid Typography Scale ── */
+.hero-display {
+  font-size: clamp(2.5rem, 6vw, 6.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.section-heading {
+  font-size: clamp(1.85rem, 3.6vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.editorial-lead {
+  font-size: clamp(1.35rem, 2.3vw, 2.25rem);
+  line-height: 1.25;
+}
+
+/* ── 12-Column Swiss Container ── */
+.editorial-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 4vw, 4rem);
+  padding-right: clamp(1.25rem, 4vw, 4rem);
+}
+
+/* ── Film Grain Overlay ── */
+.film-grain {
+  background-image: radial-gradient(rgba(210, 255, 40, 0.06) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+/* ── Ticker Animations ── */
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 34s linear infinite;
+}
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+@keyframes tickerReverse {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.animate-ticker-reverse {
+  display: flex;
+  width: max-content;
+  animation: tickerReverse 45s linear infinite;
+}
+.animate-ticker-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* ── Floating Badge Animations ── */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(1.5deg); }
+}
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(12px) rotate(-1.5deg); }
+}
+
+.float-badge-1 { animation: floatSlow 6s ease-in-out infinite; }
+.float-badge-2 { animation: floatReverse 7.5s ease-in-out infinite; }
+.float-badge-3 { animation: floatSlow 8.5s ease-in-out infinite 1s; }
+.float-badge-4 { animation: floatReverse 6.8s ease-in-out infinite 0.5s; }
+
+/* ── Rotating Seal ── */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spin-seal { animation: spinSlow 18s linear infinite; }
+
+
+/* ── Interactive Card ── */
+.interactive-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+.interactive-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -12px rgba(0, 229, 153, 0.14);
+}
+
+/* ── Hero Grid Background ── */
+.hero-grid-bg {
+  background-size: 56px 56px;
+  background-image:
+    linear-gradient(to right, rgba(0, 229, 153, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 229, 153, 0.06) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 30%, transparent 100%);
+}
+
+/* ── Gallery Scrollbar ── */
+.gallery-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Slide Progress Bar ── */
+.slide-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #D2FF28, #00E599);
+  transition: width 0.1s linear;
+}
+
+/* ── Sticky Stack Cards ── */
+.stack-card {
+  position: sticky;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s ease,
+              opacity 0.6s ease;
+  will-change: transform, filter;
+}
+
+/* ── Repertoire Drawer ── */
+.drawer-closed {
+  transform: translate3d(0, -105%, 0);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease,
+              visibility 0.65s;
+}
+
+.drawer-open {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease,
+              visibility 0.65s;
+}
+
+/* ── Aura Pulse ── */
+@keyframes pulseAura {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  50% { transform: translate(30px, -25px) scale(1.15); opacity: 0.6; }
+}
+.hero-aura { animation: pulseAura 10s ease-in-out infinite; }
+
+/* ── Light Mode Overrides ── */
+html.light-mode .bg-hovs-lime {
+  color: #F6F5F0 !important;
+}
+html.light-mode .theme-pill-lime {
+  background-color: #0B110E !important;
+  color: #D2FF28 !important;
+}
+html.light-mode .hero-adaptive-slide {
+  background: linear-gradient(135deg, #FFFFFF 0%, #ECE9DF 100%) !important;
+}
+html.light-mode .portrait-inner-box {
+  background-color: #F6F5F0 !important;
+}
+
+/* ── Shimmer Gradient Animation ── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--cream) 0%,
+    var(--emerald) 25%,
+    var(--lime) 50%,
+    var(--emerald) 75%,
+    var(--cream) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+
+/* ── Smooth Scale-in for Cards ── */
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ── Glow Border Hover ── */
+.glow-border-hover {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.glow-border-hover:hover {
+  box-shadow: 0 0 30px rgba(0, 229, 153, 0.1), 0 0 60px rgba(0, 229, 153, 0.05);
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--emerald); }
